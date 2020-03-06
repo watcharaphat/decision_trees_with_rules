@@ -45,7 +45,35 @@ Create some test data:
     CREATE (over21_rule)-[:IS_FALSE]->(gender_rule)
     CREATE (gender_rule)-[:IS_TRUE]->(answer_yes)
     CREATE (gender_rule)-[:IS_FALSE]->(answer_no)
-    
+
+
+    CREATE (tree:Tree { id: 'lending decision' })
+    CREATE (income_rule:Rule { name: 'Income range of applicant', expressions: 'income < 30000, income >= 30000 && income <= 70000, income > 70000', parameter_names: 'income', parameter_types: 'int' })
+    CREATE (criminal_rule:Rule { name: 'Criminal record?', expressions: 'has_criminal_record, !has_criminal_record', parameter_names: 'has_criminal_record', paramete_types: 'Boolean' })
+    CREATE (criminal_2_rule:Rule { name: 'Criminal record?', expressions: '!has_criminal_record, has_criminal_record', parameter_names: 'has_criminal_record', paramete_types: 'Boolean' })
+    CREATE (job_rule:Rule { name: 'Years in present job?', expressions: 'years < 1, years >=1 && years <=5, years > 5', parameter_names: 'years', parameter_types: 'int' })
+    CREATE (credit_rule:Rule { name: 'Make credit card payments?', expressions: 'paid, !paid', parameter_names: 'paid', parameters_types: 'Boolean' })
+
+    CREATE (approve_answer:Answer { id: 'approve' })
+    CREATE (reject_answer:Answer { id: 'reject' })
+
+    CREATE (tree)-[:HAS]->(income_rule)
+
+    CREATE (income_rule)-[:CASE_0]->(criminal_rule)
+    CREATE (criminal_rule)-[:CASE_0]->(approve_answer)
+    CREATE (criminal_rule)-[:CASE_1]->(reject_answer)
+
+    CREATE (income_rule)-[:CASE_1]->(job_rule)
+    CREATE (job_rule)-[:CASE_0]->(reject_answer)
+    CREATE (job_rule)-[:CASE_1]->(credit_rule)
+    CREATE (credit_rule)-[:CASE_0]->(approve_answer)
+    CREATE (credit_rule)-[:CASE_1]->(reject_answer)
+    CREATE (job_rule)-[:CASE_2]->(approve_answer)
+
+    CREATE (income_rule)-[:CASE_3]->(criminal_2_rule)
+    CREATE (criminal_2_rule)-[:CASE_0]->(reject_answer)
+    CREATE (criminal_2_rule)-[:CASE_1]->(approve_answer)
+
 Try it:
 
     CALL com.blockfint.traverse.decision_tree('bar entrance', {gender:'male', age:'20'}) yield path return path;
