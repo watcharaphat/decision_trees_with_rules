@@ -1,7 +1,7 @@
-package com.maxdemarzi;
+package com.blockfint;
 
-import com.maxdemarzi.results.PathResult;
-import com.maxdemarzi.schema.Labels;
+import com.blockfint.results.PathResult;
+import com.blockfint.schema.Labels;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.traversal.TraversalDescription;
@@ -25,8 +25,8 @@ public class DecisionTreeTraverser {
 
     private static final DecisionTreeEvaluator decisionTreeEvaluator = new DecisionTreeEvaluator();
 
-    @Procedure(name = "com.maxdemarzi.traverse.decision_tree", mode = Mode.READ)
-    @Description("CALL com.maxdemarzi.traverse.decision_tree(tree, facts) - traverse decision tree")
+    @Procedure(name = "com.blockfint.traverse.decision_tree", mode = Mode.READ)
+    @Description("CALL com.blockfint.traverse.decision_tree(tree, facts) - traverse decision tree")
     public Stream<PathResult> traverseDecisionTree(@Name("tree") String id, @Name("facts") Map<String, String> facts) throws IOException {
         // Which Decision Tree are we interested in?
         Node tree = db.findNode(Labels.Tree, "id", id);
@@ -46,8 +46,8 @@ public class DecisionTreeTraverser {
         return myTraversal.traverse(tree).stream().map(PathResult::new);
     }
 
-    @Procedure(name = "com.maxdemarzi.traverse.decision_tree_two", mode = Mode.READ)
-    @Description("CALL com.maxdemarzi.traverse.decision_tree_two(tree, facts) - traverse decision tree")
+    @Procedure(name = "com.blockfint.traverse.decision_tree_two", mode = Mode.READ)
+    @Description("CALL com.blockfint.traverse.decision_tree_two(tree, facts) - traverse decision tree")
     public Stream<PathResult> traverseDecisionTreeTwo(@Name("tree") String id, @Name("facts") Map<String, String> facts) throws IOException {
         // Which Decision Tree are we interested in?
         Node tree = db.findNode(Labels.Tree, "id", id);

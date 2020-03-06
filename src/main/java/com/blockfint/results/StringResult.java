@@ -1,4 +1,4 @@
-package com.maxdemarzi.results;
+package com.blockfint.results;
 
 public class StringResult {
     public final static StringResult EMPTY = new StringResult(null);

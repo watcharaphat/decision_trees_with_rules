@@ -1,4 +1,4 @@
-package com.maxdemarzi;
+package com.blockfint;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Rule;
@@ -32,7 +32,7 @@ public class DecisionTreeTraverserTwoTest {
 
     private static final Map QUERY1 =
             singletonMap("statements", singletonList(singletonMap("statement",
-                    "CALL com.maxdemarzi.traverse.decision_tree_two('funeral', {answer_1:'yeah', answer_2:'yeah', answer_3:'yeah'}) yield path return path")));
+                    "CALL com.blockfint.traverse.decision_tree_two('funeral', {answer_1:'yeah', answer_2:'yeah', answer_3:'yeah'}) yield path return path")));
 
     @Test
     public void testTraversalTwo() throws Exception {
@@ -45,7 +45,7 @@ public class DecisionTreeTraverserTwoTest {
 
     private static final Map QUERY2 =
             singletonMap("statements", singletonList(singletonMap("statement",
-                    "CALL com.maxdemarzi.traverse.decision_tree_two('funeral', {answer_1:'what', answer_2:'', answer_3:''}) yield path return path")));
+                    "CALL com.blockfint.traverse.decision_tree_two('funeral', {answer_1:'what', answer_2:'', answer_3:''}) yield path return path")));
 
     @Test
     public void testTraversalThree() throws Exception {
@@ -58,7 +58,7 @@ public class DecisionTreeTraverserTwoTest {
 
     private static final Map QUERY3 =
             singletonMap("statements", singletonList(singletonMap("statement",
-                    "CALL com.maxdemarzi.traverse.decision_tree_two('funeral', {answer_1:'what', answer_2:'yeah', answer_3:'okay'}) yield path return path")));
+                    "CALL com.blockfint.traverse.decision_tree_two('funeral', {answer_1:'what', answer_2:'yeah', answer_3:'okay'}) yield path return path")));
 
 
     private static final String MODEL_STATEMENT =

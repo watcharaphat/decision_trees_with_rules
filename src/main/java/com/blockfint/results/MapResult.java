@@ -1,4 +1,4 @@
-package com.maxdemarzi.results;
+package com.blockfint.results;
 
 import java.util.Collections;
 import java.util.Map;

@@ -1,6 +1,6 @@
-package com.maxdemarzi;
+package com.blockfint;
 
-import com.maxdemarzi.schema.Labels;
+import com.blockfint.schema.Labels;
 import org.neo4j.graphdb.Path;
 import org.neo4j.graphdb.traversal.BranchState;
 import org.neo4j.graphdb.traversal.Evaluation;

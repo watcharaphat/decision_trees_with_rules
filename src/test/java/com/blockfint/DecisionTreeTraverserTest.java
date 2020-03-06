@@ -1,4 +1,4 @@
-package com.maxdemarzi;
+package com.blockfint;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Rule;
@@ -33,7 +33,7 @@ public class DecisionTreeTraverserTest {
 
     private static final Map QUERY1 =
             singletonMap("statements", singletonList(singletonMap("statement",
-                    "CALL com.maxdemarzi.traverse.decision_tree('bar entrance', {gender:'male', age:'20'}) yield path return path")));
+                    "CALL com.blockfint.traverse.decision_tree('bar entrance', {gender:'male', age:'20'}) yield path return path")));
 
     @Test
     public void testTraversalTwo() throws Exception {
@@ -46,7 +46,7 @@ public class DecisionTreeTraverserTest {
 
     private static final Map QUERY2 =
             singletonMap("statements", singletonList(singletonMap("statement",
-                    "CALL com.maxdemarzi.traverse.decision_tree('bar entrance', {gender:'female', age:'19'}) yield path return path")));
+                    "CALL com.blockfint.traverse.decision_tree('bar entrance', {gender:'female', age:'19'}) yield path return path")));
 
     @Test
     public void testTraversalThree() throws Exception {
@@ -59,7 +59,7 @@ public class DecisionTreeTraverserTest {
 
     private static final Map QUERY3 =
             singletonMap("statements", singletonList(singletonMap("statement",
-                    "CALL com.maxdemarzi.traverse.decision_tree('bar entrance', {gender:'male', age:'23'}) yield path return path")));
+                    "CALL com.blockfint.traverse.decision_tree('bar entrance', {gender:'male', age:'23'}) yield path return path")));
 
 
     private static final String MODEL_STATEMENT =

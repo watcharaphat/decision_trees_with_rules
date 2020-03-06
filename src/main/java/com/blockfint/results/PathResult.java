@@ -1,4 +1,4 @@
-package com.maxdemarzi.results;
+package com.blockfint.results;
 
 import org.neo4j.graphdb.Path;
 

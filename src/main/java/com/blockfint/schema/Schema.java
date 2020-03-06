@@ -1,6 +1,6 @@
-package com.maxdemarzi.schema;
+package com.blockfint.schema;
 
-import com.maxdemarzi.results.StringResult;
+import com.blockfint.results.StringResult;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.logging.Log;
 import org.neo4j.procedure.Context;
@@ -23,8 +23,8 @@ public class Schema {
     @Context
     public Log log;
 
-    @Procedure(name = "com.maxdemarzi.schema.generate", mode = Mode.SCHEMA)
-    @Description("CALL com.maxdemarzi.schema.generate() - generate schema")
+    @Procedure(name = "com.blockfint.schema.generate", mode = Mode.SCHEMA)
+    @Description("CALL com.blockfint.schema.generate() - generate schema")
 
     public Stream<StringResult> generate() throws IOException {
         org.neo4j.graphdb.schema.Schema schema = db.schema();
