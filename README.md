@@ -70,7 +70,7 @@ Create some test data:
     CREATE (credit_rule)-[:CASE_1]->(reject_answer)
     CREATE (job_rule)-[:CASE_2]->(approve_answer)
 
-    CREATE (income_rule)-[:CASE_3]->(criminal_2_rule)
+    CREATE (income_rule)-[:CASE_2]->(criminal_2_rule)
     CREATE (criminal_2_rule)-[:CASE_0]->(reject_answer)
     CREATE (criminal_2_rule)-[:CASE_1]->(approve_answer)
 
