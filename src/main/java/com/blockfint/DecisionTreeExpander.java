@@ -30,13 +30,23 @@ public class DecisionTreeExpander implements PathExpander {
             return path.endNode().getRelationships(Direction.OUTGOING, RelationshipTypes.HAS);
         }
 
+        // if (path.endNode().hasLabel(Labels.Rule)) {
+        //     try {
+        //         if (isTrue(path.endNode())) {
+        //             return path.endNode().getRelationships(Direction.OUTGOING, RelationshipTypes.CASE_0);
+        //         } else {
+        //             return path.endNode().getRelationships(Direction.OUTGOING, RelationshipTypes.CASE_1);
+        //         }
+        //     } catch (Exception e) {
+        //         // Could not continue this way!
+        //         return Collections.emptyList();
+        //     }
+        // }
+
         if (path.endNode().hasLabel(Labels.Rule)) {
             try {
-                if (isTrue(path.endNode())) {
-                    return path.endNode().getRelationships(Direction.OUTGOING, RelationshipTypes.IS_TRUE);
-                } else {
-                    return path.endNode().getRelationships(Direction.OUTGOING, RelationshipTypes.IS_FALSE);
-                }
+                String decision = getDecision(path.endNode());
+                return path.endNode().getRelationships(Direction.OUTGOING, RelationshipTypes.valueOf(decision));
             } catch (Exception e) {
                 // Could not continue this way!
                 return Collections.emptyList();
@@ -47,25 +57,33 @@ public class DecisionTreeExpander implements PathExpander {
         return Collections.emptyList();
     }
 
-    private boolean isTrue(Node rule) throws Exception {
-            // Get the properties of the rule stored in the node
-            Map<String, Object> ruleProperties = rule.getAllProperties();
-            String[] parameterNames = Magic.explode((String) ruleProperties.get("parameter_names"));
-            Class<?>[] parameterTypes = Magic.stringToTypes((String) ruleProperties.get("parameter_types"));
+    private String getDecision(Node rule) throws Exception {
+        // Get the properties of the rule stored in the node
+        Map<String, Object> ruleProperties = rule.getAllProperties();
+        String[] parameterNames = Magic.explode((String) ruleProperties.get("parameter_names"));
+        Class<?>[] parameterTypes = Magic.stringToTypes((String) ruleProperties.get("parameter_types"));
 
-            // Fill the arguments array with their corresponding values
-            Object[] arguments = new Object[parameterNames.length];
-            for (int j = 0; j < parameterNames.length; ++j) {
-                arguments[j] = Magic.createObject(parameterTypes[j], facts.get(parameterNames[j]));
-            }
+        // Fill the arguments array with their corresponding values
+        Object[] arguments = new Object[parameterNames.length];
+        for (int j = 0; j < parameterNames.length; j++) {
+            arguments[j] = Magic.createObject(parameterTypes[j], facts.get(parameterNames[j]));
+        }
 
-            // Set our parameters with their matching types
-            ee.setParameters(parameterNames, parameterTypes);
+        // Set our parameters with their matching types
+        ee.setParameters(parameterNames, parameterTypes);
 
+        String[] expressions = ((String) ruleProperties.get("expressions")).split(", ");
+
+        for (int index = 0; index < expressions.length; index++) {
             // And now we "cook" (scan, parse, compile and load) the expression.
-            ee.cook((String)ruleProperties.get("expression"));
+            ee.cook((String) expressions[index]);
+            if ((boolean) ee.evaluate(arguments)) {
+                return "CASE_" + index;
+            }
+        }
 
-            return (boolean) ee.evaluate(arguments);
+        // TODO: handle the default decision
+        return "";
     }
 
     @Override
