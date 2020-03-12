@@ -49,10 +49,10 @@ Create some test data:
 
     CREATE (tree:Tree { id: 'lending decision' })
     CREATE (income_rule:Rule { name: 'Income range of applicant', expressions: 'income < 30000, income >= 30000 && income <= 70000, income > 70000', parameter_names: 'income', parameter_types: 'int' })
-    CREATE (criminal_rule:Rule { name: 'Criminal record?', expressions: 'has_criminal_record, !has_criminal_record', parameter_names: 'has_criminal_record', parameter_types: 'Boolean' })
-    CREATE (criminal_2_rule:Rule { name: 'Criminal record?', expressions: '!has_criminal_record, has_criminal_record', parameter_names: 'has_criminal_record', parameter_types: 'Boolean' })
+    CREATE (criminal_rule:Rule { name: 'Criminal record?', expressions: 'has_criminal_record, !has_criminal_record', parameter_names: 'has_criminal_record', parameter_types: 'boolean' })
+    CREATE (criminal_2_rule:Rule { name: 'Criminal record?', expressions: '!has_criminal_record, has_criminal_record', parameter_names: 'has_criminal_record', parameter_types: 'boolean' })
     CREATE (job_rule:Rule { name: 'Years in present job?', expressions: 'years < 1, years >=1 && years <=5, years > 5', parameter_names: 'years', parameter_types: 'int' })
-    CREATE (credit_rule:Rule { name: 'Make credit card payments?', expressions: 'paid, !paid', parameter_names: 'paid', parameters_types: 'Boolean' })
+    CREATE (credit_rule:Rule { name: 'Make credit card payments?', expressions: 'paid, !paid', parameter_names: 'paid', parameters_types: 'boolean' })
 
     CREATE (approve_answer:Answer { id: 'approve' })
     CREATE (reject_answer:Answer { id: 'reject' })
@@ -71,8 +71,8 @@ Create some test data:
     CREATE (job_rule)-[:CASE_2]->(approve_answer)
 
     CREATE (income_rule)-[:CASE_2]->(criminal_2_rule)
-    CREATE (criminal_2_rule)-[:CASE_0]->(reject_answer)
-    CREATE (criminal_2_rule)-[:CASE_1]->(approve_answer)
+    CREATE (criminal_2_rule)-[:CASE_0]->(approve_answer)
+    CREATE (criminal_2_rule)-[:CASE_1]->(reject_answer)
 
 Try it:
 
